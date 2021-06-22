@@ -1,0 +1,8 @@
+asgiref==3.3.4
+dj-rest-auth==2.1.7
+Django==3.2.4
+django-rest-framework-nested==0.0.1
+djangorestframework==3.12.4
+python-dotenv==0.17.1
+pytz==2021.1
+sqlparse==0.4.1
