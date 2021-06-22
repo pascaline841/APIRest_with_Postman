@@ -27,11 +27,11 @@ class Issue(models.Model):
     description = models.CharField(max_length=250)
     tag = models.CharField(max_length=10, choices=TAG_CHOICES, default="Task")
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default="Low")
-    project_id = models.ForeignKey(
+    project = models.ForeignKey(
         to=Project, on_delete=models.CASCADE, blank=True, null=True
     )
     status = models.CharField(max_length=11, choices=STATUS_CHOICES, default="To do")
-    author_user_id = models.ForeignKey(
+    author_user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="author",
@@ -46,4 +46,3 @@ class Issue(models.Model):
         null=True,
     )
     created_time = models.DateTimeField(auto_now_add=True)
-    

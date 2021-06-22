@@ -15,10 +15,8 @@ class ContributorViewSet(viewsets.ModelViewSet):
     # permission_classes = [permissions.IsAuthenticated, ContributorPermission]
 
     def perform_create(self, serializer, **kwargs):
-        project_pk = self.kwargs["project_pk"]
-        project = Project.objects.get(pk=project_pk)
-        serializer.save(project_id=project)
+        project_pk = Project.objects.get(pk=self.kwargs["project_pk"])
+        serializer.save(project=project_pk)
 
     def get_queryset(self, **kwargs):
-        project_pk = self.kwargs["project_pk"]
-        return Contributor.objects.filter(project_id=project_pk)
+        return Contributor.objects.filter(project=self.kwargs["project_pk"])

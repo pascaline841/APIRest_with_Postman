@@ -8,10 +8,10 @@ class Contributor(models.Model):
 
     PERMISSION_CHOICES = [("Manager", "Manager"), ("Read", "Read")]
 
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
-    project_id = models.ForeignKey(
+    project = models.ForeignKey(
         to=Project, on_delete=models.CASCADE, blank=True, null=True
     )
     permission = models.CharField(
