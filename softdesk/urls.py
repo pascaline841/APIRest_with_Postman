@@ -42,5 +42,4 @@ urlpatterns = [
     path("", include(router.urls)),
     path("", include(project_router.urls)),
     path("", include(issue_router.urls)),
-    path("dj-rest-auth/", include("dj_rest_auth.urls")),
 ]
