@@ -12,7 +12,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    # permission_classes = [permissions.IsAuthenticated, CommentPermission]
+    permission_classes = [permissions.IsAuthenticated, CommentPermission]
 
     def perform_create(self, serializer, **kwargs):
         issue_pk = Issue.objects.get(pk=self.kwargs["issue_pk"])

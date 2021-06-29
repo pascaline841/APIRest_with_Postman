@@ -12,7 +12,7 @@ class IssueViewSet(viewsets.ModelViewSet):
 
     queryset = Issue.objects.all()
     serializer_class = IssueSerializer
-    # permission_classes = [permissions.IsAuthenticated, IssuePermission]
+    permission_classes = [permissions.IsAuthenticated, IssuePermission]
 
     def perform_create(self, serializer, **kwargs):
         project_pk = Project.objects.get(pk=self.kwargs["project_pk"])

@@ -1,13 +1,8 @@
-from django.contrib.auth.models import User
-
-from rest_framework import viewsets, permissions, status
-from rest_framework.response import Response
-
-from contributors.models import Contributor
+from rest_framework import permissions, viewsets
 
 from .models import Project
-from .serializers import ProjectSerializer
 from .permissions import ProjectPermission
+from .serializers import ProjectSerializer
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -15,7 +10,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    # permission_classes = [permissions.IsAuthenticated, ProjectPermission]
+    permission_classes = [permissions.IsAuthenticated, ProjectPermission]
 
     def getqueryset(self, *args, **kwargs):
         return Project.objects.filter(author_user=self.request.user)
