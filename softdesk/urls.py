@@ -18,12 +18,13 @@ from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedSimpleRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from comments.views import CommentViewSet
 from contributors.views import ContributorViewSet
 from issues.views import IssueViewSet
 from projects.views import ProjectViewSet
-from users.views import CreateUserView, MyTokenObtainView, UserViewSet
+from users.views import CreateUserView, UserViewSet
 
 
 router = DefaultRouter()
@@ -42,6 +43,7 @@ urlpatterns = [
     path("", include(router.urls)),
     path("", include(project_router.urls)),
     path("", include(issue_router.urls)),
-    path("login/", MyTokenObtainView.as_view(), name="token_obtain"),
     path("signup/", CreateUserView.as_view()),
+    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

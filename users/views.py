@@ -4,9 +4,7 @@ from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from rest_framework_simplejwt.views import TokenViewBase
-
-from .serializers import UserSerializer, MyTokenObtainSerializer
+from .serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -26,7 +24,3 @@ class CreateUserView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-class MyTokenObtainView(TokenViewBase):
-    serializer_class = MyTokenObtainSerializer
