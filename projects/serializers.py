@@ -8,22 +8,22 @@ from .models import Project
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    author_user = serializers.ReadOnlyField(source="author_user.username")
+    user = serializers.ReadOnlyField(source="user.username")
 
     class Meta:
         model = Project
         fields = "__all__"
-        read_only_fields = ["author_user"]
+        read_only_fields = ["user"]
 
     def __str__(self):
-        return f"Project: {self.title}, {self.description}, {self.type}, {self.author_user}"
+        return f"Project: {self.title}, {self.description}, {self.type}, {self.user}"
 
     def create(self, validated_data):
         new_project = Project.objects.create(**validated_data)
         # temporary
-        username = get_user_model().objects.all().first()
-        # user = self.context["request"].user
-        new_project.author_user = username
+        # username = get_user_model().objects.all().first()
+        username = self.context["request"].user
+        new_project.user = username
         new_project.save()
         Contributor.objects.create(
             user=username,

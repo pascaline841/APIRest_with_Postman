@@ -11,10 +11,9 @@ class ProjectPermission(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         try:
-            contributor = Contributor.objects.get(author_user=request.user, project=obj)
+            contributor = Contributor.objects.get(user=request.user, project=obj)
         except Contributor.DoesNotExist:
             return False
-
         if contributor.permission == "Manager":
             return True
         elif contributor.permission == "Read":

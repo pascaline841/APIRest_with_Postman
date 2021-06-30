@@ -14,6 +14,6 @@ class Project(models.Model):
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=250)
     type = models.CharField(max_length=20, choices=TYPE_CHOICES, default="back-end")
-    author_user = models.ForeignKey(
+    user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
