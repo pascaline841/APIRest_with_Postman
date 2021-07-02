@@ -19,8 +19,8 @@ class CreateUserView(APIView):
     serializer_class = UserSerializer
 
     def post(self, request):
-        user = request.data
-        serializer = UserSerializer(data=user)
+        author = request.data
+        serializer = UserSerializer(data=author)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

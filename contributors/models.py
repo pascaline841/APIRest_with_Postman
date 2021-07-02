@@ -8,7 +8,7 @@ class Contributor(models.Model):
 
     PERMISSION_CHOICES = [("Manager", "Manager"), ("Read", "Read")]
 
-    user = models.ForeignKey(
+    author_user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
     project = models.ForeignKey(

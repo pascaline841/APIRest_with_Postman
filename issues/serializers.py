@@ -16,9 +16,7 @@ class IssueSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         issue = Issue.objects.create(**validated_data)
-        # temporary
-        user = get_user_model().objects.all().first()
-        # user = self.context["request"].user
-        issue.author_user = user
+        author = self.context["request"].user
+        issue.author_user = author
         issue.save()
         return issue

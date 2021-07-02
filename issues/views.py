@@ -3,7 +3,7 @@ from rest_framework import viewsets, permissions
 from projects.models import Project
 
 from .models import Issue
-from .permissions import IssuePermission
+from .permissions import IsIssueAuthor, IsIssueContributor
 from .serializers import IssueSerializer
 
 
@@ -12,7 +12,11 @@ class IssueViewSet(viewsets.ModelViewSet):
 
     queryset = Issue.objects.all()
     serializer_class = IssueSerializer
-    permission_classes = [permissions.IsAuthenticated, IssuePermission]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsIssueAuthor,
+        IsIssueContributor,
+    ]
 
     def perform_create(self, serializer, **kwargs):
         project_pk = Project.objects.get(pk=self.kwargs["project_pk"])

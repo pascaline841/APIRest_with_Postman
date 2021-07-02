@@ -16,9 +16,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         comment = Comment.objects.create(**validated_data)
-        # temporary
-        user = get_user_model().objects.all().first()
-        # user = self.context["request"].user
-        comment.author_user = user
+        author = self.context["request"].user
+        comment.author_user = author
         comment.save()
         return comment

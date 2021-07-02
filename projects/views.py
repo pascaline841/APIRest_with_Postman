@@ -1,7 +1,7 @@
 from rest_framework import permissions, viewsets
 
 from .models import Project
-from .permissions import ProjectPermission
+from .permissions import IsProjectAuthor, IsProjectContributor
 from .serializers import ProjectSerializer
 
 
@@ -10,7 +10,11 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [permissions.IsAuthenticated, ProjectPermission]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsProjectAuthor,
+        IsProjectContributor,
+    ]
 
     def getqueryset(self, *args, **kwargs):
         return Project.objects.filter(author_user=self.request.user)

@@ -10,7 +10,7 @@ class ContributorPermission(permissions.BasePermission):
         project_pk = view.kwargs.get("project_pk")
         try:
             contributor = Contributor.objects.get(
-                author_user=request.user, project_id=project_pk
+                user=request.user, project_id=project_pk
             )
         except Contributor.DoesNotExist:
             return False
@@ -21,14 +21,14 @@ class ContributorPermission(permissions.BasePermission):
         project_pk = view.kwargs.get("project_pk")
         try:
             contributor = Contributor.objects.get(
-                author_user=request.user, project_id=project_pk
+                user=request.user, project_id=project_pk
             )
         except Contributor.DoesNotExist:
             return False
         if contributor.permission == "Manager":
             return request.method in ["DELETE"]
         elif contributor.permission == "Read":
-            if request.user == obj.author_user:
+            if request.user == obj.user:
                 return True
             else:
                 return request.method in permissions.SAFE_METHODS

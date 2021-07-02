@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 
 from .models import Comment
-from .permissions import CommentPermission
+from .permissions import IsCommentAuthor, IsCommentContributor
 from .serializers import CommentSerializer
 
 from issues.models import Issue
@@ -12,7 +12,11 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticated, CommentPermission]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsCommentAuthor,
+        IsCommentContributor,
+    ]
 
     def perform_create(self, serializer, **kwargs):
         issue_pk = Issue.objects.get(pk=self.kwargs["issue_pk"])
