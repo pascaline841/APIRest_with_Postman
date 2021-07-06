@@ -4,7 +4,7 @@ from .models import Contributor
 
 
 class ContributorSerializer(serializers.ModelSerializer):
-    author_user = serializers.ReadOnlyField(source="author_user.username")
+    author = serializers.ReadOnlyField(source="author.username")
 
     class Meta:
         model = Contributor

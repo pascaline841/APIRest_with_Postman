@@ -7,7 +7,7 @@ class IsAuthor(permissions.BasePermission):
     message = "Must be the author !"
 
     def has_object_permission(self, request, view, obj):
-        if obj.author_user == request.user:
+        if obj.author == request.user:
             return True
         else:
             return request.method in permissions.SAFE_METHODS
@@ -20,7 +20,7 @@ class IsContributor(permissions.BasePermission):
         project_pk = view.kwargs.get("project_pk")
         try:
             contributor = Contributor.objects.get(
-                author_user=request.user, project=project_pk
+                author=request.user, project=project_pk
             )
         except Contributor.DoesNotExist:
             return False
@@ -33,12 +33,10 @@ class IsAuthorOrManager(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         project_pk = view.kwargs.get("project_pk")
         try:
-            manager = Contributor.objects.get(
-                author_user=request.user, project=project_pk
-            )
+            manager = Contributor.objects.get(author=request.user, project=project_pk)
         except Contributor.DoesNotExist:
             return False
-        if manager.permission == "Manager" or obj.author_user == request.user:
+        if manager.permission == "Manager" or obj.author == request.user:
             return True
         else:
             return request.method in permissions.SAFE_METHODS

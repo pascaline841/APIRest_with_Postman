@@ -6,17 +6,17 @@ from .models import Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author_user = serializers.ReadOnlyField(source="author_user.username")
+    author = serializers.ReadOnlyField(source="author.username")
     issue = serializers.ReadOnlyField(source="issue.title")
 
     class Meta:
         model = Comment
         fields = "__all__"
-        read_only_fields = ["author_user", "issue"]
+        read_only_fields = ["author", "issue"]
 
     def create(self, validated_data):
         comment = Comment.objects.create(**validated_data)
         author = self.context["request"].user
-        comment.author_user = author
+        comment.author = author
         comment.save()
         return comment

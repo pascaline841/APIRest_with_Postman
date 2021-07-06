@@ -18,6 +18,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
     ]
 
     def get_queryset(self, *args, **kwargs):
-        contributors = Contributor.objects.filter(author_user=self.request.user)
+        contributors = Contributor.objects.filter(author=self.request.user)
         projects = [contributor.project.id for contributor in contributors]
         return Project.objects.filter(id__in=projects)

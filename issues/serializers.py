@@ -7,16 +7,16 @@ from .models import Issue
 
 class IssueSerializer(serializers.ModelSerializer):
     project = serializers.ReadOnlyField(source="project.title")
-    author_user = serializers.ReadOnlyField(source="author_user.username")
+    author = serializers.ReadOnlyField(source="author.username")
 
     class Meta:
         model = Issue
         fields = "__all__"
-        read_only_fields = ["author_user", "project"]
+        read_only_fields = ["author", "project"]
 
     def create(self, validated_data):
         issue = Issue.objects.create(**validated_data)
         author = self.context["request"].user
-        issue.author_user = author
+        issue.author = author
         issue.save()
         return issue

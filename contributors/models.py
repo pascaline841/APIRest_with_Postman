@@ -9,7 +9,7 @@ class Contributor(models.Model):
 
     PERMISSION_CHOICES = [("Manager", "Manager"), ("Read", "Read")]
 
-    author_user = models.ForeignKey(
+    author = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
     project = models.ForeignKey(
@@ -21,4 +21,4 @@ class Contributor(models.Model):
     role = models.CharField(max_length=128)
 
     def __str__(self):
-        return f"Contributor : {self.author_user} / {self.project.title}"
+        return f"Contributor : {self.author} / {self.project.title}"
