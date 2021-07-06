@@ -1,9 +1,9 @@
 from rest_framework import viewsets, permissions
 
 from projects.models import Project
+from softdesk.permissions import IsAuthor, IsContributor, IsManager
 
 from .models import Contributor
-from .permissions import ContributorPermission
 from .serializers import ContributorSerializer
 
 
@@ -12,7 +12,12 @@ class ContributorViewSet(viewsets.ModelViewSet):
 
     queryset = Contributor.objects.all()
     serializer_class = ContributorSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsAuthor,
+        IsContributor,
+        IsManager,
+    ]
 
     def perform_create(self, serializer, **kwargs):
         project_pk = Project.objects.get(pk=self.kwargs["project_pk"])

@@ -1,10 +1,10 @@
 from rest_framework import viewsets, permissions
 
-from .models import Comment
-from .permissions import IsCommentAuthor, IsCommentContributor
-from .serializers import CommentSerializer
-
 from issues.models import Issue
+from softdesk.permissions import IsAuthor, IsContributor
+
+from .models import Comment
+from .serializers import CommentSerializer
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -14,8 +14,8 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = [
         permissions.IsAuthenticated,
-        IsCommentAuthor,
-        IsCommentContributor,
+        IsAuthor,
+        IsContributor,
     ]
 
     def perform_create(self, serializer, **kwargs):

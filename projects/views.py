@@ -1,7 +1,9 @@
+from softdesk.permissions import IsAuthor, IsContributor, IsManager
 from rest_framework import permissions, viewsets
 
+from contributors.models import Contributor
+
 from .models import Project
-from .permissions import IsProjectAuthor, IsProjectContributor
 from .serializers import ProjectSerializer
 
 
@@ -12,9 +14,12 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     permission_classes = [
         permissions.IsAuthenticated,
-        IsProjectAuthor,
-        IsProjectContributor,
+        IsAuthor,
+        # IsContributor,
+        IsManager,
     ]
 
     def get_queryset(self, *args, **kwargs):
-        return Project.objects.filter(author_user=self.request.user)
+        contributors = Contributor.objects.filter(author_user=self.request.user)
+        projects = [contributor.project.id for contributor in contributors]
+        return Project.objects.filter(id__in=projects)

@@ -22,11 +22,12 @@ class ProjectSerializer(serializers.ModelSerializer):
         new_project = Project.objects.create(**validated_data)
         author = self.context["request"].user
         new_project.author_user = author
-        new_project.save()
-        Contributor.objects.create(
+        contributor = Contributor.objects.create(
             author_user=author,
             project=new_project,
             permission="Manager",
             role="Manager",
         )
+        new_project.contributors.append(contributor)
+        new_project.save()
         return new_project
