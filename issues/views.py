@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 
 from projects.models import Project
-from softdesk.permissions import IsAuthor, IsContributor, IsManager
+from softdesk.permissions import IsAuthorOrManager, IsContributor
 
 from .models import Issue
 from .serializers import IssueSerializer
@@ -14,9 +14,8 @@ class IssueViewSet(viewsets.ModelViewSet):
     serializer_class = IssueSerializer
     permission_classes = [
         permissions.IsAuthenticated,
-        IsAuthor,
+        IsAuthorOrManager,
         IsContributor,
-        IsManager,
     ]
 
     def perform_create(self, serializer, **kwargs):

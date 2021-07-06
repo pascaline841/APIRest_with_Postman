@@ -4,23 +4,14 @@ from contributors.models import Contributor
 
 
 class ProjectPermission(permissions.BasePermission):
-    """
-    Permission for all to view his project or create a new one.
-    Permission for author to modificate/delete project.
-    """
-
-    def has_permission(self, request, view):
-        return True
+    message = "Must be the author or a manager of the project !"
 
     def has_object_permission(self, request, view, obj):
         try:
-            contributor = Contributor.objects.get(
-                author_user=request.user, project_id=obj
-            )
+            manager = Contributor.objects.get(author_user=request.user, project=obj)
         except Contributor.DoesNotExist:
             return False
-
-        if contributor.permission == "Manager":
+        if manager.permission == "Manager" or obj.author_user == request.user:
             return True
-        elif contributor.permission == "Read":
+        else:
             return request.method in permissions.SAFE_METHODS

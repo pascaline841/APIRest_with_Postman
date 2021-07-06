@@ -15,9 +15,6 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = ["author_user"]
 
-    def __str__(self):
-        return f"Project: {self.title}, {self.description}, {self.type}, {self.author_user}"
-
     def create(self, validated_data):
         new_project = Project.objects.create(**validated_data)
         author = self.context["request"].user

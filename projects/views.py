@@ -1,10 +1,10 @@
-from softdesk.permissions import IsAuthor, IsContributor, IsManager
 from rest_framework import permissions, viewsets
 
 from contributors.models import Contributor
 
 from .models import Project
 from .serializers import ProjectSerializer
+from .permissions import ProjectPermission
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -14,9 +14,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     permission_classes = [
         permissions.IsAuthenticated,
-        IsAuthor,
-        # IsContributor,
-        IsManager,
+        ProjectPermission,
     ]
 
     def get_queryset(self, *args, **kwargs):

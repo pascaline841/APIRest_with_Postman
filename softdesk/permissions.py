@@ -4,12 +4,18 @@ from contributors.models import Contributor
 
 
 class IsAuthor(permissions.BasePermission):
+    message = "Must be the author !"
+
     def has_object_permission(self, request, view, obj):
         if obj.author_user == request.user:
             return True
+        else:
+            return request.method in permissions.SAFE_METHODS
 
 
 class IsContributor(permissions.BasePermission):
+    message = "Must be a contributor of the project !"
+
     def has_permission(self, request, view):
         project_pk = view.kwargs.get("project_pk")
         try:
@@ -21,7 +27,9 @@ class IsContributor(permissions.BasePermission):
         return True
 
 
-class IsManager(permissions.BasePermission):
+class IsAuthorOrManager(permissions.BasePermission):
+    message = "Must be the author or a manager of the project !"
+
     def has_object_permission(self, request, view, obj):
         project_pk = view.kwargs.get("project_pk")
         try:
@@ -30,4 +38,7 @@ class IsManager(permissions.BasePermission):
             )
         except Contributor.DoesNotExist:
             return False
-        return manager.permission == "Manager"
+        if manager.permission == "Manager" or obj.author_user == request.user:
+            return True
+        else:
+            return request.method in permissions.SAFE_METHODS
