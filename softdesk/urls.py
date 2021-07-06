@@ -28,7 +28,6 @@ from users.views import CreateUserView, UserViewSet
 
 
 router = DefaultRouter()
-router.register(r"users", UserViewSet)
 router.register(r"projects", ProjectViewSet)
 
 project_router = NestedSimpleRouter(router, r"projects", lookup="project")

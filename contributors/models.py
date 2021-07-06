@@ -21,4 +21,4 @@ class Contributor(models.Model):
     role = models.CharField(max_length=128)
 
     def __str__(self):
-        return f"Contributor : {self.author} / {self.project.title}"
+        return f"PROJECT : {self.project.title}, CONTRIBUTOR : {self.author.username}"

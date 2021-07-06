@@ -4,6 +4,11 @@ from contributors.models import Contributor
 
 
 class ProjectPermission(permissions.BasePermission):
+    """
+    Custom permission to only allow author or managers of a project
+    to edit or delete it.
+    """
+
     message = "Must be the author or a manager of the project !"
 
     def has_object_permission(self, request, view, obj):

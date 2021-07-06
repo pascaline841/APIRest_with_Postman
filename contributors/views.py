@@ -19,8 +19,10 @@ class ContributorViewSet(viewsets.ModelViewSet):
     ]
 
     def perform_create(self, serializer, **kwargs):
+        """Create a contributor from a specific project."""
         project_pk = Project.objects.get(pk=self.kwargs["project_pk"])
         serializer.save(project=project_pk)
 
     def get_queryset(self, **kwargs):
+        """Get and display the list of contributors from a specific project."""
         return Contributor.objects.filter(project=self.kwargs["project_pk"])

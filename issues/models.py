@@ -48,4 +48,4 @@ class Issue(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Issue : {self.title}, {self.author}"
+        return f"PROJECT : {self.project.title}, ISSUE : {self.title}, AUTHOR : {self.author.username}"

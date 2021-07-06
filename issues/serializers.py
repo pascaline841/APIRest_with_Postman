@@ -1,5 +1,3 @@
-from django.contrib.auth import get_user_model
-
 from rest_framework import serializers
 
 from .models import Issue
@@ -15,8 +13,8 @@ class IssueSerializer(serializers.ModelSerializer):
         read_only_fields = ["author", "project"]
 
     def create(self, validated_data):
+        """Function to create and save an issue from a project."""
         issue = Issue.objects.create(**validated_data)
-        author = self.context["request"].user
-        issue.author = author
+        issue.author = self.context["request"].user
         issue.save()
         return issue

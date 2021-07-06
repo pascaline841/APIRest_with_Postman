@@ -19,8 +19,10 @@ class CommentViewSet(viewsets.ModelViewSet):
     ]
 
     def perform_create(self, serializer, **kwargs):
+        """Create a comment from a specific issue."""
         issue_pk = Issue.objects.get(pk=self.kwargs["issue_pk"])
         serializer.save(issue=issue_pk)
 
     def get_queryset(self, **kwargs):
+        """Get and display the list of comments from a specific issue."""
         return Comment.objects.filter(issue=self.kwargs["issue_pk"])

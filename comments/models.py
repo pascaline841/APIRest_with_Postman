@@ -17,4 +17,4 @@ class Comment(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Comment : {self.comment} / {self.author}"
+        return f"ISSUE : {self.issue.title}, COMMENT : {self.comment}, AUTHOR : {self.author}"

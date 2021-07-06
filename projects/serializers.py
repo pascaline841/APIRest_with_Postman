@@ -16,6 +16,11 @@ class ProjectSerializer(serializers.ModelSerializer):
         read_only_fields = ["author"]
 
     def create(self, validated_data):
+        """
+        Function to create a new project,
+        the author will be  a manager and the first contributor.
+        """
+
         new_project = Project.objects.create(**validated_data)
         author = self.context["request"].user
         new_project.author = author

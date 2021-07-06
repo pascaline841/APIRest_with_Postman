@@ -15,6 +15,7 @@ class CommentSerializer(serializers.ModelSerializer):
         read_only_fields = ["author", "issue"]
 
     def create(self, validated_data):
+        """Function to create and save a comment from an issue."""
         comment = Comment.objects.create(**validated_data)
         author = self.context["request"].user
         comment.author = author
