@@ -25,8 +25,8 @@ class Issue(models.Model):
 
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=250)
-    tag = models.CharField(max_length=10, choices=TAG_CHOICES, default="Task")
-    priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default="Low")
+    tag = models.CharField(max_length=7, choices=TAG_CHOICES, default="Task")
+    priority = models.CharField(max_length=6, choices=PRIORITY_CHOICES, default="Low")
     project = models.ForeignKey(
         to=Project, on_delete=models.CASCADE, blank=True, null=True
     )
@@ -41,8 +41,11 @@ class Issue(models.Model):
     assignee_user_id = models.ForeignKey(
         to=Contributor,
         on_delete=models.CASCADE,
-        related_name="contributor",
+        related_name="assignee",
         blank=True,
         null=True,
     )
     created_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Issue : {self.title}, {self.author_user}"

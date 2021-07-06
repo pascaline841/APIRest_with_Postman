@@ -17,3 +17,6 @@ class Project(models.Model):
     author_user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
+
+    def __str__(self):
+        return f"Project : {self.title}"

@@ -16,6 +16,9 @@ class Contributor(models.Model):
         to=Project, on_delete=models.CASCADE, blank=True, null=True
     )
     permission = models.CharField(
-        max_length=10, choices=PERMISSION_CHOICES, default="Read"
+        max_length=7, choices=PERMISSION_CHOICES, default="Read"
     )
     role = models.CharField(max_length=128)
+
+    def __str__(self):
+        return f"Contributor : {self.author_user.username} / {self.project.title}"
