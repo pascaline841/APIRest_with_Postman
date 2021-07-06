@@ -16,5 +16,5 @@ class ProjectViewSet(viewsets.ModelViewSet):
         IsProjectContributor,
     ]
 
-    def getqueryset(self, *args, **kwargs):
+    def get_queryset(self, *args, **kwargs):
         return Project.objects.filter(author_user=self.request.user)

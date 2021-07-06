@@ -4,13 +4,18 @@ from .models import Contributor
 
 
 class ContributorPermission(permissions.BasePermission):
-    """Custom permission to only allow contributors of an object to edit it."""
+
+    message = "Must be a contributor of the project to view it !"
 
     def has_permission(self, request, view):
+        """
+        Custom permission to only allow contributors of a project to view the list of
+        the contributors of a project.
+        """
         project_pk = view.kwargs.get("project_pk")
         try:
             contributor = Contributor.objects.get(
-                user=request.user, project_id=project_pk
+                author_user=request.user, project=project_pk
             )
         except Contributor.DoesNotExist:
             return False
@@ -18,17 +23,12 @@ class ContributorPermission(permissions.BasePermission):
             return True
 
     def has_object_permission(self, request, view, obj):
-        project_pk = view.kwargs.get("project_pk")
+        """
+        Custom permission to only allow managers of a project to create, edit or delete
+        a contributor of a project.
+        """
         try:
-            contributor = Contributor.objects.get(
-                user=request.user, project_id=project_pk
-            )
+            contributor = Contributor.objects.get(user=request.user, project_id=obj)
         except Contributor.DoesNotExist:
             return False
-        if contributor.permission == "Manager":
-            return request.method in ["DELETE"]
-        elif contributor.permission == "Read":
-            if request.user == obj.user:
-                return True
-            else:
-                return request.method in permissions.SAFE_METHODS
+        return contributor.permission == "Manager"
