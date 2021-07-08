@@ -30,6 +30,5 @@ class ProjectSerializer(serializers.ModelSerializer):
             permission="Manager",
             role="Manager",
         )
-        new_project.contributors.append(contributor)
         new_project.save()
         return new_project
