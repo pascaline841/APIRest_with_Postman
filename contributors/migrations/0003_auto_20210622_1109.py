@@ -6,18 +6,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contributors', '0002_alter_contributor_permission'),
+        ("contributors", "0002_alter_contributor_permission"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='contributor',
-            old_name='project_id',
-            new_name='project',
+            model_name="contributor",
+            old_name="project_id",
+            new_name="project",
         ),
         migrations.RenameField(
-            model_name='contributor',
-            old_name='user_id',
-            new_name='user',
+            model_name="contributor",
+            old_name="username_id",
+            new_name="user",
         ),
     ]

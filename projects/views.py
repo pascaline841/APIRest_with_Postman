@@ -22,6 +22,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
         Get and display the list of the project where
         the user is the author, manager or contributor.
         """
-        contributors = Contributor.objects.filter(author=self.request.user)
+        contributors = Contributor.objects.filter(username_id=self.request.user)
         projects = [contributor.project.id for contributor in contributors]
         return Project.objects.filter(id__in=projects)

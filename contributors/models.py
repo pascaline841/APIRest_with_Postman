@@ -9,7 +9,7 @@ class Contributor(models.Model):
 
     PERMISSION_CHOICES = [("Manager", "Manager"), ("Read", "Read")]
 
-    username = models.ForeignKey(
+    username_id = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
     project = models.ForeignKey(
@@ -21,4 +21,4 @@ class Contributor(models.Model):
     role = models.CharField(max_length=128)
 
     def __str__(self):
-        return f"PROJECT : {self.project.title}, CONTRIBUTOR : {self.username}"
+        return f"PROJECT : {self.project.title}, CONTRIBUTOR : {self.username_id}"
