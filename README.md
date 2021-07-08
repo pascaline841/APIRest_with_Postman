@@ -1,4 +1,4 @@
-<h1 align="center">DJANGO Project - SOFTDESK - OpenClassRooms Project 10</h1>
+<h1 align="center">REST API Project - SOFTDESK - OpenClassRooms Project 10</h1>
 <br>
 <br>
 Ce script Python est le 10e projet réalisé dans le cadre d'une formation chez OpenClassrooms.
@@ -41,8 +41,7 @@ Activate the virtual environment with
 ```
 source env/bin/activate 
 ```
-<br>
-## for Window, Linux or macOS
+## . . . 
 Install the python dependencies on the virtual environment
 ```
 pip install -r requirements.txt
