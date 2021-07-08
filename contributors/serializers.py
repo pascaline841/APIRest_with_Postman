@@ -4,13 +4,12 @@ from .models import Contributor
 
 
 class ContributorSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source="author.username")
     project = serializers.ReadOnlyField(source="project.title")
 
     class Meta:
         model = Contributor
         fields = "__all__"
-        read_only_fields = ["author", "project"]
+        read_only_fields = ["project"]
 
     def create(self, validated_data):
         """Function to create and save a contributor from a project."""
