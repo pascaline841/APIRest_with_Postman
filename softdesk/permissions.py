@@ -23,7 +23,7 @@ class IsContributor(permissions.BasePermission):
     def has_permission(self, request, view):
         project_pk = view.kwargs.get("project_pk")
         try:
-            Contributor.objects.get(username_id=request.user, project=project_pk)
+            Contributor.objects.get(username=request.user, project=project_pk)
         except Contributor.DoesNotExist:
             return False
         return True
@@ -37,9 +37,7 @@ class IsAuthorOrManager(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         project_pk = view.kwargs.get("project_pk")
         try:
-            manager = Contributor.objects.get(
-                username_id=request.user, project=project_pk
-            )
+            manager = Contributor.objects.get(username=request.user, project=project_pk)
         except Contributor.DoesNotExist:
             return False
         if manager.permission == "Manager" or obj.author == request.user:

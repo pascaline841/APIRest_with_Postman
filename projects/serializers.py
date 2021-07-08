@@ -8,7 +8,7 @@ from .models import Project
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source="author.username_id")
+    author = serializers.ReadOnlyField(source="author.username")
 
     class Meta:
         model = Project
@@ -25,7 +25,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         author = self.context["request"].user
         new_project.author = author
         Contributor.objects.create(
-            username_id=author,
+            username=author,
             project=new_project,
             permission="Manager",
             role="Manager",

@@ -9,11 +9,19 @@ class Contributor(models.Model):
 
     PERMISSION_CHOICES = [("Manager", "Manager"), ("Read", "Read")]
 
-    username_id = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
+    username = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="contributor",
+        blank=True,
+        null=True,
     )
     project = models.ForeignKey(
-        to=Project, on_delete=models.CASCADE, blank=True, null=True
+        to=Project,
+        on_delete=models.CASCADE,
+        related_name="contributors",
+        blank=True,
+        null=True,
     )
     permission = models.CharField(
         max_length=7, choices=PERMISSION_CHOICES, default="Read"
@@ -21,4 +29,4 @@ class Contributor(models.Model):
     role = models.CharField(max_length=128)
 
     def __str__(self):
-        return f"PROJECT : {self.project.title}, CONTRIBUTOR : {self.username_id}"
+        return f"PROJECT : {self.project.title}, CONTRIBUTOR : {self.username}"

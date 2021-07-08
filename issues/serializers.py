@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+
 from rest_framework import serializers
 
 from .models import Issue
@@ -6,6 +8,11 @@ from .models import Issue
 class IssueSerializer(serializers.ModelSerializer):
     project = serializers.ReadOnlyField(source="project.title")
     author = serializers.ReadOnlyField(source="author.username")
+    assignee = serializers.SlugRelatedField(
+        queryset=User.objects.all(),
+        slug_field="username",
+        default=serializers.CurrentUserDefault(),
+    )
 
     class Meta:
         model = Issue
