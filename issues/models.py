@@ -41,7 +41,7 @@ class Issue(models.Model):
     assignee_user_id = models.ForeignKey(
         to=Contributor,
         on_delete=models.CASCADE,
-        related_name="assignee",
+        related_name="contributor",
         blank=True,
         null=True,
     )
