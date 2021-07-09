@@ -14,9 +14,3 @@ class IssueSerializer(serializers.ModelSerializer):
         model = Issue
         fields = "__all__"
         read_only_fields = ["author", "project"]
-
-    def create(self, validated_data):
-        """Function to create and save an issue from a project."""
-        issue = Issue.objects.create(**validated_data)
-        issue.save()
-        return issue

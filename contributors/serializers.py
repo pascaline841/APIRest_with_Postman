@@ -20,9 +20,3 @@ class ContributorSerializer(serializers.ModelSerializer):
         ]
         model = Contributor
         fields = "__all__"
-
-    def create(self, validated_data):
-        """Function to create and save a contributor from a project."""
-        contributor = Contributor.objects.create(**validated_data)
-        contributor.save()
-        return contributor
