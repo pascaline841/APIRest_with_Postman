@@ -9,7 +9,6 @@ Beta version of a RESTful API made with Django REST Framework. SoftDesk is an AP
 The app will basically allow users to create various projects, add contributors to specific projects, create issues within projects and assign labels to those issues based on their priorities, tags, etc. <br> 
 The access is granted to authenticated users via JSON Web Tokens (JWTs).
 
-<br>
 ## REQUISITORIES
 Python 3 <br>
 Django 3 <br>
@@ -55,7 +54,7 @@ python manage.py migrate
 Create an administrative account :<br>
 You will be asked to select a username, provide an email address, and choose and confirm a password for the account.
 ```
-winpty python manage.py createsuperuser
+python manage.py createsuperuser
 ```
 Create and open a file named .env then paste :
 ```
@@ -68,17 +67,23 @@ Run the program
 ```
 python manage.py runserver
 ```
-Launch :
+Launch 
 ```
 http://127.0.0.1:8000
 ```
-To access to the admin account :
+To access to the admin account 
 ```
 http://127.0.0.1:8000/admin
+``
+To create an user account (different to admin account) 
 ```
-
-## API use with POSTMAN
-Endpoints can be tested with tools such as Postman or cURL.<br>
+http://127.0.0.1:8000/signin
+```
+To log in and obtain JSON Wen Token 
+```
+http://127.0.0.1:8000/login
+```
+## Test the API with POSTMAN
 A Public Postman collection is available to test the API endpoints.
 ```
 https://documenter.getpostman.com/view/16100693/TzeXk7Qo
