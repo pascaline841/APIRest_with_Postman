@@ -24,7 +24,7 @@ from comments.views import CommentViewSet
 from contributors.views import ContributorViewSet
 from issues.views import IssueViewSet
 from projects.views import ProjectViewSet
-from users.views import CreateUserView, UserViewSet
+from users.views import CreateUserView
 
 
 router = DefaultRouter()

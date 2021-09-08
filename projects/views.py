@@ -14,7 +14,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticated,
         IsAuthor,
-        IsContributor,
     ]
 
     def get_queryset(self, *args, **kwargs):
