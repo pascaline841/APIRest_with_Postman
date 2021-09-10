@@ -7,8 +7,6 @@ from projects.models import Project
 
 class Contributor(models.Model):
 
-    PERMISSION_CHOICES = [("Manager", "Manager"), ("Read", "Read")]
-
     username = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -22,9 +20,6 @@ class Contributor(models.Model):
         related_name="contributors",
         blank=True,
         null=True,
-    )
-    permission = models.CharField(
-        max_length=7, choices=PERMISSION_CHOICES, default="Read"
     )
     role = models.CharField(max_length=128)
 

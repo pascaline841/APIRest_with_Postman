@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-from contributors.models import Contributor
 from projects.models import Project
 
 
@@ -38,14 +37,14 @@ class Issue(models.Model):
         blank=True,
         null=True,
     )
-    assignee_user_id = models.ForeignKey(
-        to=Contributor,
+    assignee_user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="contributor",
+        related_name="assignee_user",
         blank=True,
         null=True,
     )
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"PROJECT : {self.project.title}, ISSUE : {self.title}, AUTHOR : {self.author.username}"
+        return f"PROJECT : {self.project.title}, ISSUE : {self.title}, AUTHOR : {self.author}"

@@ -9,10 +9,9 @@ class IsAuthor(permissions.BasePermission):
     message = "Must be the author !"
 
     def has_object_permission(self, request, view, obj):
-        if obj.author == request.user:
-            return True
-        else:
-            return request.method in permissions.SAFE_METHODS
+        if request.method in ["PUT", "PATCH", "DELETE"]:
+            return request.user == obj.author
+        return True
 
 
 class IsContributor(permissions.BasePermission):
@@ -27,20 +26,3 @@ class IsContributor(permissions.BasePermission):
         except Contributor.DoesNotExist:
             return False
         return True
-
-
-class IsAuthorOrManager(permissions.BasePermission):
-    """Custom permission to only allow author or managers to edit or delete it."""
-
-    message = "Must be the author or a manager of the project !"
-
-    def has_object_permission(self, request, view, obj):
-        project_pk = view.kwargs.get("project_pk")
-        try:
-            manager = Contributor.objects.get(username=request.user, project=project_pk)
-        except Contributor.DoesNotExist:
-            return False
-        if manager.permission == "Manager" or obj.author == request.user:
-            return True
-        else:
-            return request.method in permissions.SAFE_METHODS

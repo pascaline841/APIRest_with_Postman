@@ -16,16 +16,14 @@ class ProjectSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """
         Function to create a new project,
-        the author will be  a manager and the first contributor.
+        The author will be a manager and the first contributor.
         """
         new_project = Project.objects.create(**validated_data)
-        author = self.context["request"].user
-        new_project.author = author
+        new_project.author = self.context["request"].user
+        new_project.save()
         Contributor.objects.create(
-            username=author,
+            username=self.context["request"].user,
             project=new_project,
-            permission="Manager",
             role="Manager",
         )
-        new_project.save()
         return new_project

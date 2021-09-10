@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 
 from projects.models import Project
-from softdesk.permissions import IsAuthorOrManager, IsContributor
+from softdesk.permissions import IsContributor
 
 from .models import Contributor
 from .serializers import ContributorSerializer
@@ -14,7 +14,6 @@ class ContributorViewSet(viewsets.ModelViewSet):
     serializer_class = ContributorSerializer
     permission_classes = [
         permissions.IsAuthenticated,
-        IsAuthorOrManager,
         IsContributor,
     ]
 
