@@ -79,7 +79,7 @@ To create an user account (different to admin account)
 ```
 http://127.0.0.1:8000/signin
 ```
-To log in and obtain JSON Wen Token 
+To log in and obtain JSON Web Token 
 ```
 http://127.0.0.1:8000/login
 ```
@@ -88,3 +88,14 @@ A Public Postman collection is available to test the API endpoints.
 ```
 https://documenter.getpostman.com/view/16100693/TzeXk7Qo
 ```
+## USER TESTS with a PRESET DATABASE
+If you would like to test the API, there is a preset database with 1 admin and 3 users.
+```
+python manage.py migrate
+```
+```
+python manage.py loaddata fixtures/dumb.json
+```
+Then, run the program. <br>
+LOGIN : admin (john, jane, pasca) <br>
+PASSWORD : OCPython2021 <br>
