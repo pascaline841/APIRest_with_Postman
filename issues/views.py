@@ -21,7 +21,11 @@ class IssueViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer, **kwargs):
         """Create an issue from a specific project."""
         project_pk = Project.objects.get(pk=self.kwargs["project_pk"])
-        serializer.save(project=project_pk, author=self.request.user)
+        serializer.save(
+            project=project_pk,
+            author=self.request.user,
+            assignee_user=self.request.user,
+        )
 
     def get_queryset(self, **kwargs):
         """Get and display the list of issues from a specific project."""
