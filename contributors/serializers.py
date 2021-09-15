@@ -7,7 +7,6 @@ from .models import Contributor
 
 
 class ContributorSerializer(serializers.ModelSerializer):
-    project = serializers.ReadOnlyField(source="project.title")
     username = serializers.SlugRelatedField(
         queryset=User.objects.all(), slug_field="username"
     )
@@ -15,7 +14,7 @@ class ContributorSerializer(serializers.ModelSerializer):
     class Meta:
         validators = [
             UniqueTogetherValidator(
-                queryset=Contributor.objects.all(), fields=["username"]
+                queryset=Contributor.objects.all(), fields=["username", "project"]
             )
         ]
         model = Contributor
