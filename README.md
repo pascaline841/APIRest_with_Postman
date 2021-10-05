@@ -58,7 +58,7 @@ python manage.py createsuperuser
 ```
 Create and open a file named .env then paste :
 ```
-DB_SECRET_KEY= 
+SECRET_KEY= 
 ```
 Then complete DB_SECRET_KEY with the key you receive in private.
 
