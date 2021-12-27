@@ -18,7 +18,7 @@ Django REST Framework 3 <br>
 ## INSTALLATION
 Start by closing the repository :
 ```
-git clone https://github.com/pascaline841/api-tracking-system
+git clone https://github.com/pascaline841/p10
 ```
 Start access the project folder
 
