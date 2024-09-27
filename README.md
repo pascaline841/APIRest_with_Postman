@@ -1,8 +1,7 @@
-<h1 align="center">REST API Project - SOFTDESK - OpenClassRooms Project 10</h1>
+<h1 align="center">REST API Project - SOFTDESK </h1>
 <br>
 <br>
-Ce script Python est le 10e projet réalisé dans le cadre d'une formation chez OpenClassrooms.
-<br>
+
 
 ## OVERVIEW
 Beta version of a RESTful API made with Django REST Framework. SoftDesk is an API for managing to-do lists  (issue tracking system).This solution is aimed at corporate customers, in B2B.<br>
@@ -18,7 +17,7 @@ Django REST Framework 3 <br>
 ## INSTALLATION
 Start by closing the repository :
 ```
-git clone https://github.com/pascaline841/p10
+git clone https://github.com/pascaline841/python_p10
 ```
 Start access the project folder
 
